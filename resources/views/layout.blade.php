@@ -78,8 +78,8 @@
     <h2 class="navbar-brand fw-bold" href="#">Students management</h2>
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav">
-        <li class="nav-item"><a class="loging" href="#">Login</a></li>
-        <li class="nav-item"><a class="loging" href="#">sign</a></li>
+        <li class="nav-item"><a class="loging" href="/login">Login</a></li>
+        <li class="nav-item"><a class="loging" href="/registration">sign</a></li>
       </ul>
     </div>
   </div>
@@ -97,8 +97,6 @@
           <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="{{url('/students')}}">Student</a></li>
           <li class="nav-item"><a class="nav-link" href="{{url('/teacher')}}">Teacher</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{url('/courses')}}">Courses</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{url('/enrollment')}}">Enrollment</a></li>
         </ul>
       </div>
     </nav>

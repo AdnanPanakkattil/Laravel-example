@@ -1,11 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+@extends('layout')
+@section('content')
+  
+<div class="card mt-5">
+  <h2 class="card-header">Edit Students management </h2>
+  <div class="card-body">
+  
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary btn-sm" href="{{ route('students.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+    </div>
+  
+<form action="{{ route('students.update', $students->id) }}" method="POST">
+    @csrf
+    @method('PUT')
     
-</body>
-</html>
+        <div class="mb-3">
+            <label for="inputName" class="form-label"><strong>Name:</strong></label>
+            <input 
+                type="text" 
+                name="name" 
+                value="{{ $students->name }}"
+                class="form-control @error('name') is-invalid @enderror" 
+                id="inputName" 
+                placeholder="Name">
+            @error('name')
+                <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="inputName" class="form-label"><strong>address</strong></label>
+            <input 
+                type="text" 
+                name="address" 
+                value="{{ $students->address }}"
+                class="form-control @error('address') is-invalid @enderror" 
+                id="inputaddress" 
+                placeholder="address">
+            @error('address')
+                <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="inputmobile" class="form-label"><strong>mobile</strong></label>
+            <input 
+                type="text" 
+                name="mobile" 
+                value="{{ $students->mobile }}"
+                class="form-control @error('name') is-invalid @enderror" 
+                id="inputmobile" 
+                placeholder="mobile">
+            @error('mobile')
+                <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+    </form>
+  </div>
+</div>
+
+@endsection
