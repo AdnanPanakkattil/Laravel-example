@@ -1,89 +1,128 @@
+<!-- resources/views/users/login.blade.php -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laravel 11 Custom User Login Page - itsolutionstuff.com</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <style type="text/css">
-    body{
-      background: #F8F9FA;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color:Lavender;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .alert {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .create {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .create a {
+            text-decoration: none;
+            background-color: greenyellow;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            color: black;
+            font-weight: bold;
+        }
+
+        .create a:hover {
+            background-color: limegreen;
+            color: white;
+        }
+
+        @media (max-width: 500px) {
+            form {
+                padding: 20px;
+            }
+
+            input, button {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <form action="{{ route('login') }}" method="POST">
+        @csrf
 
-<section class="bg-light py-3 py-md-5">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-        <div class="card border border-light-subtle rounded-3 shadow-sm mt-5">
-          <div class="card-body p-3 p-md-4 p-xl-5">
-            <div class="text-center mb-3">
-              <a href="#!">
-                <img src="https://www.itsolutionstuff.com/assets/images/footer-logo-2.png" alt="BootstrapBrain Logo" width="250">
-              </a>
+        @if(session('success'))
+            <div class="alert success">
+                {{ session('success') }}
             </div>
-            <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
-            <form method="POST" action="{{ route('login.post') }}">
-              @csrf
+        @endif
 
-              @session('error')
-                  <div class="alert alert-danger" role="alert"> 
-                      {{ $value }}
-                  </div>
-              @endsession
+        @if($errors->any())
+            <div class="alert">
+                {{ $errors->first() }}
+            </div>
+        @endif
 
-              <div class="row gy-2 overflow-hidden">
-                <div class="col-12">
-                  <div class="form-floating mb-3">
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="name@example.com" required>
-                    <label for="email" class="form-label">{{ __('Email Address') }}</label>
-                  </div>
-                  @error('email')
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-                </div>
-                <div class="col-12">
-                  <div class="form-floating mb-3">
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" value="" placeholder="Password" required>
-                    <label for="password" class="form-label">{{ __('Password') }}</label>
-                  </div>
-                  @error('password')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-                </div>
-                <div class="col-12">
-                  <div class="d-flex gap-2 justify-content-between">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" name="rememberMe" id="rememberMe">
-                      <label class="form-check-label text-secondary" for="rememberMe">
-                        Keep me logged in
-                      </label>
-                    </div>
-                    <a href="#!" class="link-primary text-decoration-none">{{ __('forgot password?') }}</a>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="d-grid my-3">
-                    <button class="btn btn-primary btn-lg" type="submit">{{ __('Login') }}</button>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <p class="m-0 text-secondary text-center">Don't have an account? <a href="{{ route('register') }}" class="link-primary text-decoration-none">Sign up</a></p>
-                </div>
-              </div>
-            </form>
-          </div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit">Login</button>
+
+        <div class="create">
+            <a href="/register">Create Account</a>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+    </form>
 </body>
 </html>
