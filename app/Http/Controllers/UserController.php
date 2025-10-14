@@ -42,7 +42,7 @@ class UserController extends Controller
     }    
     public function showLoginForm()
 {
-    return view('login'); // or users.login if your view is named like that
+    return view('/layout'); // or users.login if your view is named like that
 }
 
 }

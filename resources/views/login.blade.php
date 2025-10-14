@@ -1,5 +1,4 @@
 <!-- resources/views/users/login.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@
         }
 
         body {
-            background-color:Lavender;
+            background-color: Lavender;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -45,7 +44,7 @@
         }
 
         button {
-            background-color: green;
+            background-color: DarkSlateBlue;
             color: white;
             border: none;
             cursor: pointer;
@@ -71,17 +70,21 @@
 
         .create a {
             text-decoration: none;
-            background-color: greenyellow;
+            background-color: RebeccaPurple;
             padding: 10px 20px;
             border-radius: 5px;
             display: inline-block;
-            color: black;
+            color: white;
             font-weight: bold;
         }
 
         .create a:hover {
-            background-color: limegreen;
-            color: white;
+            background-color:Lavender;
+            color: black;
+        }
+
+        .loging {
+            text-align: center;
         }
 
         @media (max-width: 500px) {
@@ -97,7 +100,11 @@
     </style>
 </head>
 <body>
-    <form action="{{ route('login') }}" method="POST">
+    <form action="{{ route('login') }}" method="POST" autocomplete="off">
+        <div class="loging">
+            <h1>Login</h1>
+        </div>
+
         @csrf
 
         @if(session('success'))
@@ -113,10 +120,10 @@
         @endif
 
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" id="email" required autocomplete="off" placeholder="Enter Your Email">
 
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+        <input type="password" name="password" id="password" required autocomplete="new-password" placeholder="Enter Your Password">
 
         <button type="submit">Login</button>
 

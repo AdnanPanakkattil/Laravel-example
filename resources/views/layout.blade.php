@@ -65,7 +65,7 @@
 
     .main-content {
       padding: 20px;
-      background-color: Lavender;
+      background-color: white;
       min-height: calc(100vh - 60px); 
     }
 

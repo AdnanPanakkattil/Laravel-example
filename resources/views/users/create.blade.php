@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>User Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Optional: Prevent caching -->
+    <meta http-equiv="Cache-Control" content="no-store" />
+
     <style>
-        /* Reset some default styles */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,8 +17,26 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color:Lavender;
-            padding: 20px;
+            background-color: Lavender;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
         }
 
         .alert {
@@ -25,21 +46,14 @@
             margin-bottom: 20px;
             border-radius: 5px;
             border: 1px solid #d6e9c6;
-        }
-
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-weight: bold;
+            color: #333;
         }
 
         input[type="text"],
@@ -62,23 +76,25 @@
 
         button[type="submit"] {
             width: 100%;
-            background-color: #28a745;
+            background-color: DarkSlateBlue;
             color: white;
             border: none;
             padding: 12px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
+            
         }
 
         button[type="submit"]:hover {
-            background-color: #218838;
+            background-color: Lavender;
+            color: black;
         }
 
-        /* Responsive for smaller devices */
         @media (max-width: 600px) {
-            form {
+            .container {
                 padding: 20px;
+                margin: 10px;
             }
 
             input[type="text"],
@@ -96,33 +112,38 @@
     </style>
 </head>
 <body>
-    @if(session('success'))
-        <div class="alert">
-            {{ session('success') }}
-        </div>
-    @endif
+    <div class="container">
+        <h1>Register</h1>
 
-    <form action="{{ route('users.store') }}" method="POST">
-        @csrf
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ old('name') }}">
-        @error('name')
-            <div class="error">{{ $message }}</div>
-        @enderror
+        @if(session('success'))
+            <div class="alert">
+                {{ session('success') }}
+            </div>
+        @endif
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ old('email') }}">
-        @error('email')
-            <div class="error">{{ $message }}</div>
-        @enderror
+        <form action="{{ route('users.store') }}" method="POST" autocomplete="off">
+            @csrf
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-        @error('password')
-            <div class="error">{{ $message }}</div>
-        @enderror
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Add your Name" autocomplete="off">
+            @error('name')
+                <div class="error">{{ $message }}</div>
+            @enderror
 
-        <button type="submit">Register</button>
-    </form>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" autocomplete="off">
+            @error('email')
+                <div class="error">{{ $message }}</div>
+            @enderror
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="new-password">
+            @error('password')
+                <div class="error">{{ $message }}</div>
+            @enderror
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
 </body>
 </html>
