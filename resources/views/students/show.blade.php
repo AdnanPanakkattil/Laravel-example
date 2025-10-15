@@ -7,9 +7,13 @@
     </div>
     <div class="card-body">
         <div class="card-body">
-            <h5 class="card-title">Name:{{ $students->name }}</h5>
+            <p class="card-text"> First Name{{ $students->first_name }}</p>
+            <p class="card-text"> Last Name{{ $students->last_name }}</p>
+            <p class="card-text"> Age {{ $students->age }}</p>
             <p class="card-text">Address:{{ $students->address }}</p>
             <p class="card-text">Mobile :{{ $students->mobile }}</p>
+            <p class="card-text">Guardian Name {{ $students->guardian_name }}</p>
+            <p class="card-text">Mother Name {{ $students->mother_name }}</p>
 </div>
     </div>
 </div>

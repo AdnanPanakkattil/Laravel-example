@@ -65,7 +65,7 @@
 
     .main-content {
       padding: 20px;
-      background-color: white;
+      background-color: Lavender;
       min-height: calc(100vh - 60px); 
     }
 
@@ -85,7 +85,7 @@
       <ul class="navbar-nav">
         @guest
           <li class="nav-item">
-            <a class="nav-link auth-link" href="{{ route('login') }}">Login</a>
+            <a class="nav-link auth-link" href="{{ route('users.login') }}">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link auth-link" href="{{ route(name: 'users.create') }}">Signup</a>
@@ -128,8 +128,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href=""> <!-- Assuming 'teacher.index' route -->
-              <i class="fas fa-chalkboard-teacher me-2"></i> Teachers
+            <a class="nav-link {{ Request::routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}"> <!-- Assuming 'teacher.index' route -->
+              <i class="fas fa-chalkboard-teacher me-2"></i> products
             </a>
           </li>
           <!-- Add more sidebar links as needed -->

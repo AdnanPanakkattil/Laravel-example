@@ -14,21 +14,52 @@
     @method('PUT')
     
         <div class="mb-3">
-            <label for="inputName" class="form-label"><strong>Name:</strong></label>
+            <label for="first_name" class="form-label"><strong>First Name</strong></label>
             <input 
                 type="text" 
-                name="name" 
-                value="{{ $students->name }}"
-                class="form-control @error('name') is-invalid @enderror" 
-                id="inputName" 
-                placeholder="Name">
-            @error('name')
+                name="first_name" 
+                value="{{ $students->first_name }}"
+                class="form-control @error('first_name') is-invalid @enderror" 
+                id="first_name" 
+                placeholder="first name">
+            @error('first_name')
                 <div class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>
 
+
         <div class="mb-3">
-            <label for="inputName" class="form-label"><strong>address</strong></label>
+            <label for="last_name" class="form-label"><strong>Last Name</strong></label>
+            <input 
+                type="text" 
+                name="last_name" 
+                value="{{ $students->last_name }}"
+                class="form-control @error('last_name') is-invalid @enderror" 
+                id="last_name" 
+                placeholder="Name">
+            @error('last_name')
+                <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+
+        <div class="mb-3">
+            <label for="age" class="form-label"><strong>Age</strong></label>
+            <input 
+                type="text" 
+                name="age" 
+                value="{{ $students->age }}"
+                class="form-control @error('age') is-invalid @enderror" 
+                id="age" 
+                placeholder="age">
+            @error('age')
+                <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+
+        <div class="mb-3">
+            <label for="inputName" class="form-label"><strong>Address</strong></label>
             <input 
                 type="text" 
                 name="address" 
@@ -42,7 +73,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="inputmobile" class="form-label"><strong>mobile</strong></label>
+            <label for="inputmobile" class="form-label"><strong>Mobile</strong></label>
             <input 
                 type="text" 
                 name="mobile" 
@@ -51,6 +82,34 @@
                 id="inputmobile" 
                 placeholder="mobile">
             @error('mobile')
+                <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+            
+        <div class="mb-3">
+            <label for="first_name" class="form-label"><strong>First Name</strong></label>
+            <input 
+                type="text" 
+                name="first_name" 
+                value="{{ $students->first_name }}"
+                class="form-control @error('first_name') is-invalid @enderror" 
+                id="first_name" 
+                placeholder="first name">
+            @error('first_name')
+                <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+            
+        <div class="mb-3">
+            <label for="first_name" class="form-label"><strong>First Name</strong></label>
+            <input 
+                type="text" 
+                name="first_name" 
+                value="{{ $students->first_name }}"
+                class="form-control @error('first_name') is-invalid @enderror" 
+                id="first_name" 
+                placeholder="first name">
+            @error('first_name')
                 <div class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>

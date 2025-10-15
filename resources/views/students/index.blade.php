@@ -14,30 +14,28 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>
-                                    id
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Address
-                                </th>
-                                <th>
-                                    Mobile
-                                </th>
-                                <th>
-                                    Action
-                                </th>
+                                <th> id </th>
+                                <th> First Name </th>
+                                <th> Last Name </th>
+                                <th> Age </th>
+                                <th> Address </th>
+                                <th> Mobile</th>
+                                <th> Guardian Name  </th>
+                                <th> Mother Name </th>
+                                <th> Action </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($students as $item )
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->first_name }}</td>
+                                    <td>{{ $item->last_name }}</td>
+                                    <td>{{ $item->age }}</td>
                                     <td>{{ $item->address }}</td>
                                     <td>{{ $item->mobile }}</td>
+                                    <td>{{ $item->guardian_name }}</td>
+                                    <td>{{ $item->mother_name }}</td>
                                     <td>
                                         <a href="{{ url('/students/' . $item->id) }}" title="View Student">
                                             <button class="btn btn-primary btn-sm">
@@ -62,7 +60,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>`
+                </div>
             </div>
         </div>
 @endsection

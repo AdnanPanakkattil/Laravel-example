@@ -45,17 +45,26 @@ class StudentController extends Controller
         return view('students.edit', compact('students'));
     }
 
+
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'age' => 'required|string|max:25',
             'address' => 'required|string|max:255',
             'mobile' => 'required|string|max:20',
+            'guardian_name' => 'required|string|max:200',
+            'mother_name' => 'required|string|max:200',
          ]);
         $student = Student::findOrFail($id);
-        $student->name = $validated['name'];
+        $student->first_name = $validated['first_name'];
+        $student->last_name = $validated['last_name'];
+        $student->age = $validated['age'];
         $student->address = $validated['address'];
         $student->mobile = $validated['mobile'];
+        $student->guardian_name=$validated['guardian_name'];
+        $student->mother_name = $validated['mother_name'];
         $student->save();
     return redirect()->route('students.index')->with('success', 'Student updated successfully.');
 
