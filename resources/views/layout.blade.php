@@ -85,7 +85,7 @@
       <ul class="navbar-nav">
         @guest
           <li class="nav-item">
-            <a class="nav-link auth-link" href="{{ route('users.login') }}">Login</a>
+            <a class="nav-link auth-link" href="{{ route('login') }}">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link auth-link" href="{{ route(name: 'users.create') }}">Signup</a>

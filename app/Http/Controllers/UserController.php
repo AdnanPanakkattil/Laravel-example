@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create'); // Make sure register.blade.php exists
+        return view('users.create');
     }
 
     /**
@@ -28,21 +29,53 @@ class UserController extends Controller
             'password' => ['required', Password::min(8)],
         ]);
 
-        // Create user
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
-        // Optionally login user
-        // auth()->login($user);
+        return redirect()->route('login')->with('success', 'User registered successfully. Please log in.');
+    }
 
-        return redirect('/')->with('success', 'User registered successfully!');
-    }    
+    /**
+     * Show login form.
+     */
     public function showLoginForm()
-{
-    return view('/layout'); // or users.login if your view is named like that
-}
+    {
+        return view('users.login');
+    }
 
+    /**
+     * Handle login submission.
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials are incorrect.',
+        ])->withInput();
+    }
+
+    /**
+     * Logout user.
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login')->with('success', 'Logged out successfully.');
+    }
 }
