@@ -8,14 +8,14 @@ class UpdateStudentsColumns extends Migration
 {
     public function up()
 {
-    Schema::table('students', function (Blueprint $table) {
-        $table->text('first_name')->nullable()->change();
-        $table->string('last_name', 255)->nullable()->change();
-        $table->integer('age')->nullable()->change();
-        $table->string('address', 255)->nullable()->change();
-        $table->string('mother_name', 255)->nullable()->change();
-        $table->string('mobile', 20)->nullable()->change();
-        $table->renameColumn('father_name', 'guardian_name');
+        Schema::table('students', function (Blueprint $table) {
+            $table->text('first_name')->nullable()->change();
+            $table->string('last_name', 255)->nullable()->change();
+            $table->integer('age')->nullable()->change();
+            $table->string('address', 255)->nullable()->change();
+            $table->string('mother_name', 255)->nullable()->change();
+            $table->string('mobile', 20)->nullable()->change();
+            $table->renameColumn('father_name', 'guardian_name');
     });
 }
     public function down()
