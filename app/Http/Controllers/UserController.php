@@ -10,18 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Show the registration form.
-     */
-    public function create()
+    // Show the registration form.
+    public function showRegistrationForm()
     {
-        return view('users.create');
+        return view('users.create'); // resources/views/users/create.blade.php
     }
 
-    /**
-     * Handle registration form submission.
-     */
-    public function store(Request $request)
+    // Handle registration form submission.
+    public function register(Request $request)
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -35,20 +31,22 @@ class UserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        return redirect()->route('login')->with('success', 'User registered successfully. Please log in.');
+        // Optional: Automatically log in after registration
+        Auth::login($user);
+
+        return redirect('/')->with('success', value: 'User registered successfully!');
     }
 
-    /**
-     * Show login form.
-     */
+    // Show login form (GET)
     public function showLoginForm()
     {
-        return view('users.login');
+        return view('users.login'); // ✅ Must match the actual path
     }
 
-    /**
-     * Handle login submission.
-     */
+    // Handle login submission (POST)
+
+
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -56,26 +54,23 @@ class UserController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/')->with('success', 'Logged in successfully.');
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials are incorrect.',
-        ])->withInput();
+            'email' => 'The provided credentials do not match our records.',
+            ])->onlyInput('email');
     }
 
-    /**
-     * Logout user.
-     */
+    // Logout
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('success', 'Logged out successfully.');
+        return redirect('/')->with('success', 'Logged out successfully.');
     }
 }

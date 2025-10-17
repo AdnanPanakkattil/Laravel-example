@@ -121,7 +121,7 @@
             </div>
         @endif
 
-        <form action="{{ route('users.store') }}" method="POST" autocomplete="off">
+        <form action="{{ route('users.create') }}" method="POST" autocomplete="off">
             @csrf
 
             <label for="name">Name:</label>

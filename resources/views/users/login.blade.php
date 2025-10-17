@@ -1,15 +1,11 @@
-<!-- resources/views/users/login.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body {
             background-color: Lavender;
             display: flex;
@@ -20,7 +16,6 @@
             margin: 0;
             padding: 0;
         }
-
         form {
             background: white;
             padding: 30px;
@@ -29,27 +24,23 @@
             width: 90%;
             max-width: 400px;
         }
-
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
-
         input, button {
             width: 100%;
             margin-bottom: 15px;
             padding: 10px;
             font-size: 16px;
         }
-
         button {
             background-color: DarkSlateBlue;
             color: white;
             border: none;
             cursor: pointer;
         }
-
         .alert {
             background: #f8d7da;
             color: #721c24;
@@ -57,17 +48,14 @@
             margin-bottom: 15px;
             border-radius: 5px;
         }
-
         .success {
             background-color: #d4edda;
             color: #155724;
         }
-
         .create {
             text-align: center;
             margin-top: 10px;
         }
-
         .create a {
             text-decoration: none;
             background-color: RebeccaPurple;
@@ -77,21 +65,17 @@
             color: white;
             font-weight: bold;
         }
-
         .create a:hover {
             background-color:Lavender;
             color: black;
         }
-
         .loging {
             text-align: center;
         }
-
         @media (max-width: 500px) {
             form {
                 padding: 20px;
             }
-
             input, button {
                 font-size: 14px;
                 padding: 8px;
@@ -100,36 +84,29 @@
     </style>
 </head>
 <body>
-    <form action="{{ route('login') }}" method="POST" autocomplete="off">
-        <div class="loging">
-            <h1>Login</h1>
+   <form action="{{ route('login.submit') }}" method="POST" autocomplete="off">
+    @csrf
+
+    @if(session('success'))
+        <div class="alert success">
+            {{ session('success') }}
         </div>
+    @endif
 
-        @csrf
-
-        @if(session('success'))
-            <div class="alert success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if($errors->any())
-            <div class="alert">
-                {{ $errors->first() }}
-            </div>
-        @endif
-
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required autocomplete="off" placeholder="Enter Your Email">
-
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required autocomplete="new-password" placeholder="Enter Your Password">
-
-        <button type="submit">Login</button>
-
-        <div class="create">
-            <a href="/register">Create Account</a>
+    @if($errors->any())
+        <div class="alert">
+            {{ $errors->first() }}
         </div>
-    </form>
+    @endif
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required placeholder="Enter Email">
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required placeholder="Enter Password">
+
+    <button type="submit">Login</button>
+</form>
+
 </body>
 </html>
