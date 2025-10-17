@@ -12,7 +12,9 @@ Route::get('/', function () {
 });
 
 // Students resource routes
-Route::resource('students', StudentController::class);
+// Route::resource('students', StudentController::class);
+Route::get('/students', [StudentController::class,'index'])->name('students.index');
+
 Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
 Route::delete('/students/{id}/delete', [StudentController::class, 'destroy'])->name('students.destroy');
 

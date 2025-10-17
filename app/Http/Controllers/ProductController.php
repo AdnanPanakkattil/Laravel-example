@@ -34,12 +34,11 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductStoreRequest $request): RedirectResponse
+    public function store(ProductStoreRequest $request)
     {   
         Product::create($request->validated());
-           
-        return redirect()->route('products.index')
-                         ->with('success', 'Product created successfully.');
+
+        return response()->json(['message' => 'Product created successfully.']);
     }
   
     /**
