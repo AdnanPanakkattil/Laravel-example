@@ -19,6 +19,11 @@ class UserController extends Controller
         return view('users.create'); // resources/views/users/create.blade.php
     }
 
+    public function create()
+{
+    return view('users.create'); // Make sure this view file exists.
+}
+
     // Handle registration form submission.
     public function register(Request $request)
     {
