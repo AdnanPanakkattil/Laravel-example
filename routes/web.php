@@ -38,14 +38,17 @@ Route::get('/users/create', [UserController::class, 'create'])->name('users.crea
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('users.login');
 Route::post('/login', [UserController::class, 'login'])->name('login.submit');
 
+
+
 // User Logout Route
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+
+
 
 // Products resource routes
 Route::resource('products', ProductController::class);
 
-// Manual user creation (optional)
-// Route::get(uri: 'users.create', [UserController::class, 'create'])->name('users.create');
 
 
 
