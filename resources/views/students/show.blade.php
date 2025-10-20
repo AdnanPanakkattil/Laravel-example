@@ -14,7 +14,7 @@
             <p class="card-text">Mobile :{{ $students->mobile }}</p>
             <p class="card-text">Guardian Name {{ $students->guardian_name }}</p>
             <p class="card-text">Mother Name {{ $students->mother_name }}</p>
-</div>
+        </div>
     </div>
 </div>
 

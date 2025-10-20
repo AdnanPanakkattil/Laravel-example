@@ -4,12 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class student extends Model
+class Student extends Model
 {
-        protected $table ='students';
-        protected $primaryKey = 'id';
-        protected $fillable = ['first_name','last_name','age','address','mobile','first_name','guardian_name','mother_name'];
+    protected $table = 'students';
+    protected $primaryKey = 'id';
 
-        // use HasFactory;
-
+    // Make all form fields fillable
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'age',
+        'mobile',
+        'address',
+        'guardian_name',
+        'mother_name',
+    ];
 }

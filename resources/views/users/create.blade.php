@@ -122,7 +122,7 @@
             </div>
         @endif
 
-        <form action="{{ route('users.create') }}" method="POST" autocomplete="off">
+        <form action="{{ route('register.submit') }}" method="POST" autocomplete="off">
             @csrf
 
             <label for="name">Name:</label>

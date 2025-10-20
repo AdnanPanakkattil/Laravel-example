@@ -1,5 +1,5 @@
 @extends('layout')
-@section('content')
+    @section('content')
         <div class="card">
             <div class="card-header">
                 <h2>Student Application</h2>
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-@endsection
+    @endsection
 
 
 

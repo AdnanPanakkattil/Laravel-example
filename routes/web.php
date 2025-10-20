@@ -14,20 +14,20 @@ Route::get('/', function () {
 
 //students create roote 
 
+Route::post('/students', [StudentController::class, 'store'])->name('students.store');
 Route::get('/students', [StudentController::class, 'index'])->name('students.index');
 Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
-Route::post('/students', [StudentController::class, 'store'])->name('students.store');
 Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
 Route::delete('/students/{id}/delete', [StudentController::class, 'destroy'])->name('students.destroy');
 
 
-
 // Table view route
+
 Route::get('table', [Controller::class, 'Table']);
 
 
+// Show registration form
 
-// User Registration Routes
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [UserController::class, 'register'])->name('register.submit');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -44,15 +44,10 @@ Route::post('/login', [UserController::class, 'login'])->name('login.submit');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
-
-
 // Products resource routes
 Route::resource('products', ProductController::class);
 
 
 
-
 // Optional dashboard after login
-Route::get('/dashboard', function () {
-    return view('dashboard'); // Create resources/views/dashboard.blade.php if needed
-})->middleware('auth');
+Route::get('/dashboard', function () {return view('dashboard'); })->middleware('auth');
