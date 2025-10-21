@@ -18,7 +18,7 @@
                         </a>
                     </div>
 
-                    <form action="{{ route('students.update', $students->id) }}" method="POST" novalidate>
+                    <form action="{{ route('students.edit', $student->id) }}" method="POST" novalidate>
                         @csrf
                         @method('PUT')
 
@@ -26,7 +26,7 @@
                             <div class="col-md-6">
                                 <label for="first_name" class="form-label">First Name</label>
                                 <input type="text" name="first_name" id="first_name"
-                                       value="{{ old('first_name', $students->first_name) }}"
+                                       value="{{ old('first_name', $student->first_name) }}"
                                        class="form-control @error('first_name') is-invalid @enderror">
                                 @error('first_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -36,7 +36,7 @@
                             <div class="col-md-6">
                                 <label for="last_name" class="form-label">Last Name</label>
                                 <input type="text" name="last_name" id="last_name"
-                                       value="{{ old('last_name', $students->last_name) }}"
+                                       value="{{ old('last_name', $student->last_name) }}"
                                        class="form-control @error('last_name') is-invalid @enderror">
                                 @error('last_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -46,7 +46,7 @@
                             <div class="col-md-4">
                                 <label for="age" class="form-label">Age</label>
                                 <input type="number" name="age" id="age"
-                                       value="{{ old('age', $students->age) }}"
+                                       value="{{ old('age', $student->age) }}"
                                        class="form-control @error('age') is-invalid @enderror">
                                 @error('age')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -56,7 +56,7 @@
                             <div class="col-md-8">
                                 <label for="mobile" class="form-label">Mobile</label>
                                 <input type="text" name="mobile" id="mobile"
-                                       value="{{ old('mobile', $students->mobile) }}"
+                                       value="{{ old('mobile', $student->mobile) }}"
                                        class="form-control @error('mobile') is-invalid @enderror">
                                 @error('mobile')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -66,7 +66,7 @@
                             <div class="col-12">
                                 <label for="address" class="form-label">Address</label>
                                 <input type="text" name="address" id="address"
-                                       value="{{ old('address', $students->address) }}"
+                                       value="{{ old('address', $student->address) }}"
                                        class="form-control @error('address') is-invalid @enderror">
                                 @error('address')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -76,7 +76,7 @@
                             <div class="col-md-6">
                                 <label for="guardian_name" class="form-label">Guardian Name</label>
                                 <input type="text" name="guardian_name" id="guardian_name"
-                                       value="{{ old('guardian_name', $students->guardian_name) }}"
+                                       value="{{ old('guardian_name', $student->guardian_name) }}"
                                        class="form-control @error('guardian_name') is-invalid @enderror">
                                 @error('guardian_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -86,7 +86,7 @@
                             <div class="col-md-6">
                                 <label for="mother_name" class="form-label">Mother Name</label>
                                 <input type="text" name="mother_name" id="mother_name"
-                                       value="{{ old('mother_name', $students->mother_name) }}"
+                                       value="{{ old('mother_name', $student->mother_name) }}"
                                        class="form-control @error('mother_name') is-invalid @enderror">
                                 @error('mother_name')
                                     <div class="invalid-feedback">{{ $message }}</div>

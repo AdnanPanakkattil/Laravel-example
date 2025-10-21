@@ -14,12 +14,9 @@ Route::get('/', function () {
 
 //students create roote 
 
-Route::post('/students', [StudentController::class, 'store'])->name('students.store');
-Route::get('/students', [StudentController::class, 'index'])->name('students.index');
-Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
-Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
-Route::delete('/students/{id}/delete', [StudentController::class, 'destroy'])->name('students.destroy');
-
+//
+Route::get('/students/data', [StudentController::class, 'getData'])->name('students.data');
+Route::resource('students', StudentController::class);
 
 // Table view route
 
@@ -51,3 +48,4 @@ Route::resource('products', ProductController::class);
 
 // Optional dashboard after login
 Route::get('/dashboard', function () {return view('dashboard'); })->middleware('auth');
+   

@@ -1,21 +1,19 @@
 @extends('layout')
-@section('content')
 
-<div class="card">
-    <div class="card-header">
-        Students Page
+@section('content')
+<div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+        Student Details
     </div>
     <div class="card-body">
-        <div class="card-body">
-            <p class="card-text"> First Name{{ $students->first_name }}</p>
-            <p class="card-text"> Last Name{{ $students->last_name }}</p>
-            <p class="card-text"> Age {{ $students->age }}</p>
-            <p class="card-text">Address:{{ $students->address }}</p>
-            <p class="card-text">Mobile :{{ $students->mobile }}</p>
-            <p class="card-text">Guardian Name {{ $students->guardian_name }}</p>
-            <p class="card-text">Mother Name {{ $students->mother_name }}</p>
-        </div>
+        <p><strong>First Name:</strong> {{ $student->first_name }}</p>
+        <p><strong>Last Name:</strong> {{ $student->last_name }}</p>
+        <p><strong>Age:</strong> {{ $student->age }}</p>
+        <p><strong>Address:</strong> {{ $student->address }}</p>
+        <p><strong>Mobile:</strong> {{ $student->mobile }}</p>
+        <p><strong>Guardian Name:</strong> {{ $student->guardian_name }}</p>
+        <p><strong>Mother Name:</strong> {{ $student->mother_name }}</p>
+        <a href="{{ route('students.index') }}" class="btn btn-secondary mt-3">Back</a>
     </div>
 </div>
-
 @endsection

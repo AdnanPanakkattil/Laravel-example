@@ -13,7 +13,16 @@ $(document).ready(function () {
             method: 'POST',
             data: $(this).serialize(), // Send all form fields
             success: function (response) {
-                alert(response.message || 'Student saved successfully!');
+                Swal.fire({
+                    title: "Create New Student",
+                    text: response.message,
+                    icon: "success",
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    window.location.href = "/students";
+                });
                 $('#studentsForm')[0].reset(); // Clear form
             },
             error: function (xhr) {
