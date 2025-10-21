@@ -25,15 +25,11 @@
                                 <th> Action </th>
                             </tr>
                         </thead>
-                        <tbody>
-  
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    @endsection
-
+@endsection
 
 @section(section: 'scripts')
 <script src="{{ asset('page-js/students-create/student-index.js') }}"></script>

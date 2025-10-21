@@ -45,7 +45,6 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::resource('products', ProductController::class);
 
 
-
 // Optional dashboard after login
 Route::get('/dashboard', function () {return view('dashboard'); })->middleware('auth');
    
