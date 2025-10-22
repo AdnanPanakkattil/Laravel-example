@@ -1,33 +1,32 @@
-$(document).ready(function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+$(function() {
+    var table = $('#products-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/products/get-products',
+
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'name', name: 'name' },
+            { data: 'detail', name: 'detail' },
+            { data: 'action', name: 'action', orderable: false, searchable: false },
+        ]
     });
 
-    $('#productForm').on('submit', function (e) {
-        e.preventDefault(); // Stop the form from reloading the page
-
-        $.ajax({
-            url: '/products', // Laravel route for products.store
-            method: 'POST',
-            data: $(this).serialize(), // Serialize the whole form
-            success: function (response) {
-                alert(response.message || 'Product saved successfully!');
-                $('#productForm')[0].reset(); // Clear form
-            },
-            error: function (xhr) {
-                if (xhr.status === 422) {
-                    let errors = xhr.responseJSON.errors;
-                    let message = '';
-                    for (let field in errors) {
-                        message += errors[field][0] + '\n';
-                    }
-                    alert(message);
-                } else {
-                    alert('Something went wrong: ' + xhr.statusText);
+    // Delete product
+    $('#products-table').on('click', '.deleteProduct', function() {
+        var productId = $(this).data('id');
+        if(confirm("Are you sure you want to delete this product?")) {
+            $.ajax({
+                url: '/products/' + productId,
+                type: 'DELETE',
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    alert(response.success);
+                    table.ajax.reload();
                 }
-            }
-        });
+            });
+        }
     });
 });

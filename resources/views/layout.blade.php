@@ -6,16 +6,51 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>School Management</title>
   <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+
+  <!-- Bootstrap & Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- DataTables -->
   <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
   <style>
-    .sidebar {
-      height: 100vh;
-      background-color: DarkSlateBlue;
-      border-right: 1px solid #ddd;
-      padding-top: 20px;
+    body {
+      background-color: Lavender;
+      overflow-x: hidden;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: Indigo;
+      border-bottom: 1px solid #ddd;
+    }
+    .navbar .navbar-brand {
       color: white;
+      font-weight: bold;
+    }
+    .navbar .navbar-brand:hover { 
+      color: white;
+    }
+    .navbar .nav-link.auth-link {
+      color: white;
+      font-weight: 500;
+      margin-left: 10px;
+      transition: 0.3s;
+    }
+    .navbar .nav-link.auth-link:hover {
+      color: Indigo;
+      background: white;
+      border-radius: 5px;
+      padding: 5px 10px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background-color: DarkSlateBlue;
+      color: white;
+      min-height: 100vh;
+      padding-top: 20px;
+      transition: all 0.3s ease;
     }
     .sidebar .nav-link {
       color: white;
@@ -24,6 +59,7 @@
       margin-bottom: 5px;
       font-weight: 500;
       transition: all 0.2s;
+      display: block;
     }
     .sidebar .nav-link.active,
     .sidebar .nav-link:hover {
@@ -31,68 +67,82 @@
       color: #000;
       font-weight: bold;
     }
-    .navbar .navbar-brand {
-      color: white;
-      font-weight: bold; 
-      text-decoration: none; 
+    .sidebar h6 {
+      color: #f8f9fa;
     }
-    .navbar .navbar-brand:hover { 
-      color: white;
-    }
-    .navbar {
-      border-bottom: 1px solid #ddd;
-      background-color: Indigo;
-      color: white;
-    }
-    .navbar .nav-link.auth-link { 
-      text-decoration: none;
-      margin-left: 15px;
-      font-weight: 500;
-      color: white;
-      transition: 0.3s;
-    }
-    .navbar .nav-link.auth-link:hover {
-      color: Indigo;
-      background: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
+
+    /* Main Content */
     .main-content {
       padding: 20px;
-      background-color: Lavender;
-      min-height: calc(100vh - 60px); 
+      min-height: calc(100vh - 60px);
     }
+
     .card {
       border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Responsive Sidebar */
+    @media (max-width: 991px) {
+      .sidebar {
+        position: fixed;
+        top: 56px;
+        left: -250px;
+        width: 220px;
+        height: 100%;
+        z-index: 1050;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .main-content {
+        padding-top: 70px;
+      }
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1040;
+    }
+    .sidebar-overlay.active {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-<!-- Top Navbar -->
-<nav class="navbar navbar-expand-lg">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="#">School Management</a>
+    <button class="btn btn-light d-lg-none me-2" id="sidebarToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a class="navbar-brand" href="#">School Management</a>
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link auth-link" href="{{ route('users.login') }}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link auth-link" href="{{ route('users.create') }}">Signup</a>
-          </li>
+        <li class="nav-item">
+          <a class="nav-link auth-link" href="{{ route('users.login') }}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link auth-link" href="{{ route('users.create') }}">Signup</a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Page Layout -->
-<div class="container-fluid">
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+<div class="container-fluid">
   <div class="row">
     <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block sidebar">
+    <nav class="col-lg-2 sidebar d-lg-block" id="sidebarMenu">
       <div class="p-3">
         <h6 class="text-uppercase fw-bold mb-3">Dashboard</h6>
         <ul class="nav flex-column">
@@ -116,18 +166,36 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 main-content">
-        @yield('content')
+    <main class="col-lg-10 ms-auto main-content">
+      @yield('content')
     </main>
   </div>
-  
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Sidebar toggle for mobile
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebarMenu');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  sidebarToggle?.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  });
+
+  overlay?.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+</script>
+
 @yield('scripts')
 
 </body>
