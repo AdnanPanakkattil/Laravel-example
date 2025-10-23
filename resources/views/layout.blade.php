@@ -152,7 +152,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::routeIs('students.*') ? 'active' : '' }}" href="{{ route('students.index') }}">
+            <a class="nav-link {{ Request::routeIs('students.*') ? 'active' : '' }}"  href="{{ route('students.index') }}">
               <i class="fas fa-user-graduate me-2"></i> Students
             </a>
           </li>

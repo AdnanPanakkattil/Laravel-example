@@ -18,9 +18,9 @@
                         </a>
                     </div>
 
-                    <form action="{{ route('students.edit', $student->id) }}" method="POST" novalidate>
-                        @csrf
-                        @method('PUT')
+                    <input type="text" id="edit_student_id" value="{{ @$studentId }}">
+
+                    <form id="student_form" method="POST" novalidate>
 
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -95,7 +95,7 @@
                         </div>
 
                         <div class="mt-4 text-end">
-                            <button type="submit" class="btn btn-success">
+                            <button type="button" class="btn btn-success" id="student_save_btn">
                                 <i class="fa-solid fa-floppy-disk me-1"></i> Update
                             </button>
                         </div>
@@ -107,4 +107,11 @@
         </div>
     </div>
 </div>
+@endsection
+
+    <!-- AJAX script -->
+@section('scripts')
+
+    <script src="{{ asset('page-js/students-create/students-edit.js') }}"></script>
+
 @endsection

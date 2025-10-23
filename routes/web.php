@@ -12,15 +12,27 @@ Route::get('/', function () {
     return view('layout'); 
 });
 
-//students create roote 
 
-//
-Route::get('/students/data', [StudentController::class, 'getData'])->name('students.data');
-Route::resource('students', StudentController::class);
+
+
+
+//students roote 
+
+Route::get('students', [StudentController::class, 'index'])->name('students.index');
+Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
+Route::get('students/{id}/show', [StudentController::class, 'show'])->name('students.show');
+
+Route::get('students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
+Route::put('students/update/{studentId}', [StudentController::class, 'update'])->name('students.update');
+
+
 
 // Table view route
 
 Route::get('table', [Controller::class, 'Table']);
+
+
+
 
 
 // Show registration form
@@ -31,9 +43,13 @@ Route::get('/users/create', [UserController::class, 'create'])->name('users.crea
 
 
 
+
+
 // User Login Routes
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('users.login');
 Route::post('/login', [UserController::class, 'login'])->name('login.submit');
+
+
 
 
 
@@ -42,16 +58,21 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
 
+
+
+//products root
+
 Route::get('products', [ProductController::class, 'index'])->name('products.index');
 Route::get('products/get-products', [ProductController::class, 'getProducts'])->name('products.getProducts');
-
 Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('products', [ProductController::class, 'store'])->name('products.store');
-
 Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+
+
 
 
 // Optional dashboard after login

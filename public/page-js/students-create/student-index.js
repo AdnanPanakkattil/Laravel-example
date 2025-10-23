@@ -7,7 +7,7 @@ $(document).ready(function () {
     $('#studentsTable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "/students/data",
+        ajax: "/students",
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
             { data: 'first_name', name: 'first_name' },

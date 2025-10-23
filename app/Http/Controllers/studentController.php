@@ -12,14 +12,10 @@ class StudentController extends Controller
     /**
      * Display a listing of students.
      */
-    public function index(): View
+    public function index(Request $request)
     {
-        return view('students.index');
-    }
-
-    public function getData()
-    {
-        $students = Student::select(['id', 'first_name', 'last_name', 'age', 'address', 'mobile', 'guardian_name', 'mother_name'])->orderBy('created_at', 'desc');
+        if ($request->ajax()) {
+            $students = Student::select(['id', 'first_name', 'last_name', 'age', 'address', 'mobile', 'guardian_name', 'mother_name'])->orderBy('created_at', 'desc');
 
         return DataTables::of($students)
             ->addIndexColumn()
@@ -35,6 +31,14 @@ class StudentController extends Controller
             })
             ->rawColumns(['action'])
             ->make(true);
+        }
+
+        return view('students.index');
+    }
+
+    public function getData()
+    {
+        
     }
 
     /**
@@ -93,7 +97,8 @@ class StudentController extends Controller
     public function edit(string $id): View
     {
         $student = Student::findOrFail($id);
-        return view('students.edit', compact('student'));
+        $studentId = $id;
+        return view('students.edit', compact('student','studentId'));
         // ❌ Before: compact('students.edit') — wrong key
         // ✅ Should pass variable name that exists: 'student'
     }
@@ -101,7 +106,7 @@ class StudentController extends Controller
     /**
      * Update the specified student in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, string $id)
     {
         $validated = $request->validate([
             'first_name'    => 'required|string|max:255',
@@ -116,9 +121,11 @@ class StudentController extends Controller
         $student = Student::findOrFail($id);
         $student->update($validated);
 
-        return redirect()
-            ->route('students.index')
-            ->with('flash_message', 'Student updated successfully!');
+        return response()->json([
+        'status'  => 'success',
+        'message' => 'Student updated successfully!',
+        'student' => $student, // optional, you can return updated data
+    ]);
     }
 
     /**
