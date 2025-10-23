@@ -21,9 +21,12 @@ Route::get('/', function () {
 Route::get('students', [StudentController::class, 'index'])->name('students.index');
 Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
 Route::get('students/{id}/show', [StudentController::class, 'show'])->name('students.show');
-
+Route::post('students', [studentController::class, 'store'])->name('students.store');
 Route::get('students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
 Route::put('students/update/{studentId}', [StudentController::class, 'update'])->name('students.update');
+Route::delete('students/{students}', [studentController::class, 'destroy'])->name('student.destroy');
+
+
 
 
 
