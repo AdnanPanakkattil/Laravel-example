@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
-        public function formTable()
-    {
-        return view('form');
-    }
+    public function formTable()
+        {
+            return view('form');
+        }
 }

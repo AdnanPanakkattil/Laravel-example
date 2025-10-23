@@ -2,89 +2,101 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use App\Models\Product;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
-        return view('products.index');
-    }
-
-      public function create()
-    {
-        return view('products.create');
-    }
-
-    // DataTables JSON API
-    public function getProducts(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = Product::select(['id', 'name', 'detail', 'created_at']);
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $btn = '<a href="'.route('products.show', $row->id).'" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a> ';
-                    $btn .= '<a href="'.route('products.edit', $row->id).'" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></a> ';
-                    $btn .= '<button data-id="'.$row->id.'" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash"></i></button>';
-                    return $btn;
+    public function index(Request $request)
+        {
+            if ($request->ajax()) {
+                $products = Product::select(['id', 'name', 'detail'])
+                    ->orderBy('created_at', 'desc');
+                        return DataTables::of($products)
+                    ->addIndexColumn()
+                    ->addColumn('action', function ($product) {
+                    return '
+                        <a href="'.route('products.show', $product->id).'" class="btn btn-primary btn-sm">View</a>
+                        <a href="'.route('products.edit', $product->id).'" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="'.route('products.destroy', $product->id).'" method="POST" style="display:inline;" class="deleteForm">
+                            '.csrf_field().method_field('DELETE').'
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    ';
                 })
+
                 ->rawColumns(['action'])
                 ->make(true);
+            }
+
+            return view('products.index');
         }
-    }
 
-    //store controller
+        public function create(): View
+            {
+                return view('products.create');
+            }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
+        public function store(Request $request)
+            {
+                $validated = $request->validate([
+                    'name'   => 'required|string|max:255',
+                    'detail' => 'required|string|max:255',
+                ]);
 
-        Product::create($request->all());
-        return response()->json(['success' => 'Product added successfully.']);
-    }
+                $product = Product::create($validated);
+
+                if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Product added successfully!',
+                    'data'    => $product
+                ]);
+                }
+
+                return redirect()
+                    ->route('products.index')
+                    ->with('flash_message', 'Product added successfully!');
+            }
+
+        public function show($id): View
+            {
+                $product = Product::findOrFail($id);
+                return view('products.show', compact('product'));
+            }
+
+        public function edit(string $id): View
+            {
+                $product = Product::findOrFail($id);
+                return view('products.edit', compact('product'));
+            }
+
+        public function update(Request $request, string $id)
+            {
+                $validated = $request->validate([
+                    'name' => 'required|string|max:255',
+                    'detail' => 'required|string|max:255',
+                ]);
+
+                $product = Product::findOrFail($id);
+                $product->update($validated);
+
+                // ✅ Flash message for success
+                return redirect()->route('products.index')
+                ->with('success', 'Product updated successfully!');
+            }
 
 
-    //edit controller
+        public function destroy(string $id): RedirectResponse
+            {
+                $product = Product::findOrFail($id);
+                $product->delete();
 
-
-        public function edit(Product $product)
-    {
-        return view('products.edit', compact('product'));
-    }
-
-
-    //update controller
-   public function update(Request $request, Product $product)
-    {
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
-
-        $product->update($request->all());
-        return response()->json(['success' => 'Product updated successfully.']);
-    }
-
-
-
-    //delete controller
-    public function destroy(Product $product)
-    {
-        $product->delete();
-        return response()->json(['success' => 'Product deleted successfully.']);
-    }
-
-
-    //show controller
-    public function show(Product $product)
-    {
-       return view('products.show', compact('product'));
-    }
-
+                return redirect()
+                    ->route('products.index')
+                    ->with('flash_message', 'Product deleted successfully!');
+            }
 }
