@@ -40,27 +40,27 @@ class ProductController extends Controller
                 return view('products.create');
             }
 
-        public function store(Request $request)
-            {
-                $validated = $request->validate([
-                    'name'   => 'required|string|max:255',
-                    'detail' => 'required|string|max:255',
-                ]);
 
-                $product = Product::create($validated);
 
-                if ($request->ajax()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Product added successfully!',
-                    'data'    => $product
-                ]);
-                }
 
-                return redirect()
-                    ->route('products.index')
-                    ->with('flash_message', 'Product added successfully!');
-            }
+
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'detail' => 'required|string|max:255',
+    ]);
+
+    Product::create($validated);
+
+    return response()->json(['message' => 'Product created successfully!']);
+}
+
+
+
+
+
+
 
         public function show($id): View
             {

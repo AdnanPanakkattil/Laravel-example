@@ -29,7 +29,7 @@
                             </div>
                     
                         <div class="d-grid mt-4">
-                            <button type="submit" id="saveBtn" class="btn btn-success btn-lg">Save products</button>
+                            <button type="button" id="saveBtn" class="btn btn-success btn-lg">Save products</button>
                         </div>
                     </form>
                 </div>
@@ -39,5 +39,5 @@
     @endsection
 
     @section(section: 'scripts')
-        <script src="{{ asset('page-js/products-js/products.js') }}"></script>
+        <script src="{{ asset('page-js/product-js/products.js') }}"></script>
     @endsection

@@ -13,6 +13,8 @@ $(document).ready(function () {
             method: 'POST',
             data: $(this).serialize(), // Send all form fields
             success: function (response) {
+            //sweet alert code start
+
                 Swal.fire({
                     title: "Create New Student",
                     text: response.message,
@@ -24,7 +26,10 @@ $(document).ready(function () {
                     window.location.href = "/students";
                 });
                 $('#studentsForm')[0].reset(); // Clear form
+                
+            //sweet alert code end
             },
+
             error: function (xhr) {
                 if (xhr.status === 422) {
                     let errors = xhr.responseJSON.errors;

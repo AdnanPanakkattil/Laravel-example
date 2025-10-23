@@ -146,6 +146,7 @@
       <div class="p-3">
         <h6 class="text-uppercase fw-bold mb-3">Dashboard</h6>
         <ul class="nav flex-column">
+
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-home me-2"></i> Home
