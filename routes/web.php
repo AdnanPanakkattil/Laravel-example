@@ -80,8 +80,6 @@ Route::post('/products/store', [ProductController::class, 'store']);
 
 
 
-// Optional dashboard after login
-Route::get('/dashboard', function () {return view('dashboard'); })->middleware('auth');
-
-
-Route::get('default', [Controller::class, 'default']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

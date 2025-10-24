@@ -9,8 +9,6 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-
-
 class UserController extends Controller
 {
     // Show the registration form.
@@ -107,4 +105,17 @@ class UserController extends Controller
             return response()->json(['message' => 'User registered successfully.'], 200);
         }
 
+
+
+
+
+
+public function dashboard(Request $request)
+{
+    return view('dashboard');
 }
+
+
+}
+
+

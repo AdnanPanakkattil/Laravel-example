@@ -21,7 +21,7 @@
     }
     /* Navbar */
     .navbar {
-      background-color: Indigo;
+      background-color: #2B3856;
       border-bottom: 1px solid #ddd;
     }
     .navbar .navbar-brand {
@@ -46,7 +46,7 @@
 
     /* Sidebar */
     .sidebar {
-      background-color: DarkSlateBlue;
+      background-color: #2B547E;
       color: white;
       min-height: 100vh;
       padding-top: 20px;
@@ -113,6 +113,14 @@
     .sidebar-overlay.active {
       display: block;
     }
+    /* Main Content */
+.main-content {
+  
+    margin-top: 30px;
+
+
+}
+
   </style>
 </head>
 <body>
@@ -148,8 +156,8 @@
         <ul class="nav flex-column">
 
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fas fa-home me-2"></i> Home
+            <a class="nav-link {{ Request::routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+              <i class="fas fa-tachometer-alt me-2"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
